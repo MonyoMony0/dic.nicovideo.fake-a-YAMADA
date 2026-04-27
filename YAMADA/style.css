@@ -1,0 +1,349 @@
+/* =========================================================
+   架空ニコニコ大百科 風テンプレート
+   ---------------------------------------------------------
+   - index.html            : YAMADA本記事
+   - articles/*.html       : 関連項目の暫定記事
+   - video/truth.html      : 関連動画クリック後のローディング演出
+   - img/yamada-aa.png     : AA風イメージ画像
+   ========================================================= */
+
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  font-family: "Meiryo", "Hiragino Kaku Gothic ProN", sans-serif;
+  background: #eee;
+  color: #222;
+  font-size: 14px;
+}
+
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Header ---------- */
+#topbar {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: #252525;
+  color: #fff;
+  border-bottom: 4px solid #999;
+}
+
+#topbar a {
+  color: #fff;
+}
+
+.logo {
+  margin-right: 28px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.search {
+  margin-left: auto;
+}
+
+.search input {
+  width: 260px;
+  padding: 5px;
+  border: 1px solid #777;
+}
+
+.search button {
+  padding: 5px 12px;
+}
+
+/* ---------- Layout ---------- */
+#wrap {
+  width: 1060px;
+  margin: 18px auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+#main {
+  width: 760px;
+}
+
+#side {
+  width: 280px;
+}
+
+.breadcrumb {
+  margin: -4px 0 8px;
+  color: #777;
+  font-size: 12px;
+}
+
+/* ---------- Boxes ---------- */
+.box {
+  margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid #bbb;
+}
+
+.box-head {
+  padding: 7px 10px;
+  background: linear-gradient(#f8f8f8, #ddd);
+  border-bottom: 1px solid #bbb;
+  font-weight: bold;
+}
+
+.box-body {
+  padding: 12px;
+}
+
+/* ---------- Article ---------- */
+.article-title {
+  margin-bottom: 12px;
+  padding: 14px 16px 10px;
+  background: #fff;
+  border: 1px solid #bbb;
+}
+
+.article-title h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.reading {
+  color: #777;
+  font-size: 13px;
+}
+
+.meta {
+  margin-top: 10px;
+  color: #666;
+  font-size: 12px;
+}
+
+.article {
+  padding: 18px 22px;
+  background: #fff;
+  border: 1px solid #bbb;
+}
+
+.article h2 {
+  margin: 28px 0 12px;
+  padding: 6px 10px;
+  background: #f2f2f2;
+  border-left: 8px solid #555;
+  border-bottom: 1px solid #bbb;
+  font-size: 20px;
+}
+
+.article h3 {
+  margin-top: 22px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.article p,
+.article ul {
+  line-height: 1.8;
+}
+
+.notice {
+  margin: 14px 0;
+  padding: 10px;
+  background: #ffffe8;
+  border: 1px solid #ccc;
+}
+
+/* ---------- Sidebar ---------- */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.info-table th {
+  width: 90px;
+  padding: 6px;
+  background: #eee;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.info-table td {
+  padding: 6px;
+  border: 1px solid #ccc;
+}
+
+.tag {
+  display: inline-block;
+  margin: 3px;
+  padding: 3px 7px;
+  background: #f2f2f2;
+  border: 1px solid #ccc;
+  font-size: 12px;
+}
+
+.article-list {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.8;
+}
+
+/* ---------- AA image ---------- */
+.aa-image {
+  text-align: center;
+}
+
+.aa-image img {
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  image-rendering: auto;
+}
+
+.aa-caption {
+  margin-top: 6px;
+  color: #777;
+  font-size: 12px;
+}
+
+/* ---------- Related videos ---------- */
+.video-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+}
+
+.video-item:first-child {
+  border-top: none;
+}
+
+.video-thumb {
+  width: 120px;
+  height: 70px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+  border: 1px solid #bbb;
+  color: #777;
+  font-size: 12px;
+}
+
+.video-info {
+  flex: 1;
+}
+
+.video-info p {
+  margin: 5px 0 0;
+  line-height: 1.5;
+}
+
+.video-meta {
+  margin-top: 3px;
+  color: #777;
+  font-size: 12px;
+}
+
+/* ---------- BBS ---------- */
+.comment {
+  padding: 10px 4px;
+  border-top: 1px solid #ccc;
+  line-height: 1.6;
+}
+
+.comment:first-child {
+  border-top: none;
+}
+
+.comment-no {
+  color: #080;
+  font-weight: bold;
+}
+
+.comment-date {
+  color: #777;
+  font-size: 12px;
+}
+
+/* ---------- Loading page ---------- */
+.loading-area {
+  padding: 28px 14px;
+  text-align: center;
+}
+
+.loading-title {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.loading-desc {
+  color: #555;
+}
+
+.loading-bar {
+  width: 70%;
+  height: 12px;
+  margin: 18px auto;
+  overflow: hidden;
+  background: #eee;
+  border: 1px solid #bbb;
+}
+
+.loading-bar::before {
+  content: "";
+  display: block;
+  width: 42%;
+  height: 100%;
+  background: #999;
+  animation: load-slide 1.2s linear infinite;
+}
+
+.loading-status {
+  color: #666;
+  font-size: 13px;
+}
+
+.backlink {
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+@keyframes load-slide {
+  from { margin-left: -42%; }
+  to   { margin-left: 100%; }
+}
+
+/* ---------- Footer / Responsive ---------- */
+.footer {
+  margin: 24px;
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  #wrap {
+    width: auto;
+    margin: 10px;
+    display: block;
+  }
+
+  #main,
+  #side {
+    width: auto;
+  }
+
+  .search input {
+    width: 150px;
+  }
+}
