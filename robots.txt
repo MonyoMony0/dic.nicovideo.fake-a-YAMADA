@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /
 
-# 補助用
+# 補助用です。検索除外は各HTMLの noindex meta を主に使います。

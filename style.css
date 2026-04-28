@@ -347,3 +347,68 @@ a:hover {
     width: 150px;
   }
 }
+
+
+/* ---------- Comment post form (display only) ---------- */
+.post-form {
+  margin-top: 14px;
+  padding: 10px;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+}
+
+.post-form-title {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.post-form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.post-form-row label {
+  width: 42px;
+  color: #555;
+}
+
+.post-form input,
+.post-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #bbb;
+  background: #fff;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.post-form input {
+  padding: 4px 6px;
+  color: #555;
+}
+
+.post-form textarea {
+  height: 76px;
+  padding: 6px;
+  resize: vertical;
+}
+
+.post-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #777;
+  font-size: 12px;
+}
+
+.post-form button {
+  padding: 4px 14px;
+  border: 1px solid #999;
+  background: linear-gradient(#fff, #ddd);
+  color: #333;
+  cursor: default;
+}
