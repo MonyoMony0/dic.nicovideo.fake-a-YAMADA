@@ -496,3 +496,193 @@ a:hover {
   font-family: inherit;
   cursor: pointer;
 }
+
+
+/* ---------- Related video thumbnails integrated ---------- */
+.video-thumb {
+  overflow: hidden;
+  text-decoration: none;
+  background: #111;
+}
+
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ---------- Fake Nico-style player for video/truth.html ---------- */
+.fake-video-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  border: 1px solid #111;
+}
+
+.fake-video-player img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.fake-comment-layer {
+  position: absolute;
+  inset: 0 0 42px 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.fake-nico-comment {
+  position: absolute;
+  right: -120%;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 2px 2px 3px #000, -1px -1px 2px #000;
+  animation: fake-nico-flow 3s linear forwards;
+}
+
+@keyframes fake-nico-flow {
+  from { right: -120%; }
+  to { right: 110%; }
+}
+
+.fake-play-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 84px;
+  height: 84px;
+  transform: translate(-50%, -50%);
+  border: 3px solid rgba(255,255,255,.9);
+  border-radius: 50%;
+  background: rgba(0,0,0,.70);
+  cursor: pointer;
+  z-index: 5;
+}
+
+.fake-play-button::before {
+  content: "";
+  position: absolute;
+  left: 33px;
+  top: 23px;
+  border-left: 26px solid #fff;
+  border-top: 18px solid transparent;
+  border-bottom: 18px solid transparent;
+}
+
+.fake-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  color: #ddd;
+  background: rgba(0,0,0,.80);
+  font-size: 12px;
+  z-index: 3;
+}
+
+.fake-seekbar {
+  flex: 1;
+  height: 5px;
+  overflow: hidden;
+  background: #444;
+  border-radius: 999px;
+}
+
+.fake-progress {
+  width: 4%;
+  height: 100%;
+  background: #ddd;
+}
+
+.fake-loading-mask {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #000;
+  font-size: 18px;
+  letter-spacing: .08em;
+  z-index: 6;
+}
+
+.fake-player-caption {
+  margin-top: 8px;
+  color: #666;
+  font-size: 13px;
+}
+
+
+/* ---------- Fake Nico comment list under player ---------- */
+.nico-comments {
+  margin-top: 14px;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+}
+
+.nico-comments-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  background: linear-gradient(#f8f8f8, #e8e8e8);
+  border-bottom: 1px solid #cfcfcf;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.nico-comments-tabs {
+  font-weight: normal;
+  color: #666;
+  font-size: 12px;
+}
+
+.nico-comments-body {
+  max-height: 220px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.nico-comment-row {
+  display: grid;
+  grid-template-columns: 58px 1fr 78px;
+  gap: 8px;
+  padding: 6px 10px;
+  border-bottom: 1px solid #eee;
+  line-height: 1.4;
+}
+
+.nico-comment-row:nth-child(even) {
+  background: #fafafa;
+}
+
+.nico-comment-time {
+  color: #777;
+  white-space: nowrap;
+}
+
+.nico-comment-text {
+  color: #222;
+}
+
+.nico-comment-date {
+  color: #999;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 12px;
+}

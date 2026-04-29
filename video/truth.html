@@ -17,7 +17,7 @@
     <a href="../index.html#bbs">掲示板</a>
 </div>
 <div class="search">
-<input type="text" value="YAMADA"/>
+<input id="search-title" type="text" value="YAMADA"/>
 <button>検索</button>
 </div>
 </div>
@@ -30,13 +30,27 @@
 <div class="meta">この記事は架空の記事です。実在のニコニコ大百科とは関係ありません。</div>
 </section>
 <article class="article">
-<div class="loading-area">
-<div class="loading-title" id="loading-title">動画を読み込み中...</div>
-<p class="loading-desc">関連動画の情報を取得しています……</p>
-<div class="loading-bar"></div>
-<p class="loading-status">数秒後に外部動画へ移動します。</p>
-<p class="backlink"><a href="../index.html#videos">関連動画へ戻る</a></p>
+<div class="fake-video-player">
+<img id="video-thumb" src="" alt=""/>
+<div class="fake-comment-layer" id="comment-layer"></div>
+<button class="fake-play-button" id="play-button" aria-label="再生"></button>
+<div class="fake-controls">
+<span>▶</span>
+<span id="video-time">0:00 / --:--</span>
+<div class="fake-seekbar"><div class="fake-progress"></div></div>
+<span>コメント</span>
 </div>
+<div class="fake-loading-mask" id="loading-mask">Now Loading...</div>
+</div>
+<p class="fake-player-caption" id="video-caption">再生ボタンを押すと動画を読み込みます。</p>
+<section class="nico-comments">
+<div class="nico-comments-head">
+<span>コメント</span>
+<span class="nico-comments-tabs">新しい順｜古い順｜投稿者コメント</span>
+</div>
+<div class="nico-comments-body" id="comment-list"></div>
+</section>
+<p class="backlink"><a href="../index.html#videos">関連動画へ戻る</a></p>
 </article>
 </main>
 <aside id="side">
@@ -46,7 +60,8 @@
 <table class="info-table">
 <tr><th>タイトル</th><td id="side-title">関連動画</td></tr>
 <tr><th>分類</th><td>動画 / 重要資料</td></tr>
-<tr><th>状態</th><td>取得中</td></tr>
+<tr><th>状態</th><td id="side-status">再生待機中</td></tr>
+<tr><th>再生時間</th><td id="side-time">--:--</td></tr>
 </table>
 </div>
 </section>
@@ -75,17 +90,113 @@
 <script>
 (function () {
   const params = new URLSearchParams(window.location.search);
-  const videoTitle = params.get('title') || '関連動画';
+  const videoTitle = params.get('title') || '山田君、立つ';
+
+  const videoMap = {
+    '山田君、立つ': {
+      thumb: 'thumb/yamada-stand.jpg',
+      time: '3:45',
+      meta: '再生: 12,345　コメント: 678　マイリスト: 90',
+      comments: ['山田ァ！', '立ったｗｗｗ', '議場ざわついてて草', 'ここ原点', '謎の貫禄', '誰だよ', 'YAMADA確認'],
+      commentList: [
+        { time: '0:00', text: 'うぽつ', date: '1日前' },
+        { time: '0:03', text: '山田君！？', date: '1日前' },
+        { time: '0:05', text: '立つだけでコメント稼ぐ男', date: '1日前' },
+        { time: '0:08', text: '議場ざわついてて草', date: '23時間前' },
+        { time: '0:12', text: '誰だよ', date: '22時間前' },
+        { time: '0:18', text: 'この時点ではまだ普通に見える', date: '20時間前' },
+        { time: '0:24', text: 'ここ原点', date: '18時間前' },
+        { time: '0:31', text: 'YAMADA確認', date: '16時間前' }
+      ]
+    },
+    '熊より怖い男 YAMADA': {
+      thumb: 'thumb/yamada-bear.jpg',
+      time: '6:22',
+      meta: '再生: 8,910　コメント: 321　マイリスト: 45',
+      comments: ['熊逃げて', 'こわい', '勝てるわけない', '対熊兵器', 'これは森の主', 'YAMADA強すぎ', '目が合ったら終わり'],
+      commentList: [
+        { time: '0:01', text: 'タイトルでもう怖い', date: '3日前' },
+        { time: '0:04', text: '熊より怖いは盛りすぎだろ', date: '3日前' },
+        { time: '0:07', text: 'いや盛ってないかも', date: '2日前' },
+        { time: '0:10', text: '熊逃げて', date: '2日前' },
+        { time: '0:16', text: '対熊兵器YAMADA', date: '2日前' },
+        { time: '0:25', text: '森の主交代のお知らせ', date: '1日前' },
+        { time: '0:33', text: '目が合ったら終わり', date: '1日前' },
+        { time: '0:41', text: 'コメント欄も怯えてて草', date: '18時間前' }
+      ]
+    },
+    'YAMADA、真実を語る': {
+      thumb: 'thumb/yamada-truth.jpg',
+      time: '7:18',
+      meta: '再生: 5,432　コメント: 210　マイリスト: 32',
+      comments: ['絶対嘘で草', 'ソースは？', '独自入手映像（笑）', '情報量が多い', 'クソコラやめろ', '真実とは', '信じるな'],
+      commentList: [
+        { time: '0:00', text: 'サムネの時点で嘘', date: '5日前' },
+        { time: '0:02', text: '独自入手映像（笑）', date: '5日前' },
+        { time: '0:06', text: '情報量が多い', date: '4日前' },
+        { time: '0:09', text: 'クソコラやめろ', date: '4日前' },
+        { time: '0:14', text: '真実を語るな', date: '3日前' },
+        { time: '0:19', text: 'ソースどこ？', date: '2日前' },
+        { time: '0:27', text: 'この雑さが逆に本物っぽい', date: '1日前' },
+        { time: '0:35', text: '信じるな', date: '12時間前' }
+      ]
+    }
+  };
+
+  const data = videoMap[videoTitle] || videoMap['山田君、立つ'];
 
   document.getElementById('page-title').textContent = videoTitle + ' - 架空ニコニコ大百科';
   document.getElementById('article-title').textContent = videoTitle;
-  document.getElementById('loading-title').textContent = videoTitle;
   document.getElementById('side-title').textContent = videoTitle;
   document.getElementById('breadcrumb-title').textContent = videoTitle;
+  document.getElementById('search-title').value = videoTitle;
+  document.getElementById('video-thumb').src = data.thumb;
+  document.getElementById('video-thumb').alt = videoTitle;
+  document.getElementById('video-time').textContent = '0:00 / ' + data.time;
+  document.getElementById('side-time').textContent = data.time;
+  document.getElementById('video-caption').textContent = data.meta;
 
-  window.setTimeout(function () {
-    window.location.href = 'https://www.youtube.com/watch?v=eglYGbybkrY';
-  }, 1600);
+  const commentList = document.getElementById('comment-list');
+  data.commentList.forEach(function (item) {
+    const row = document.createElement('div');
+    row.className = 'nico-comment-row';
+    row.innerHTML =
+      '<span class="nico-comment-time">' + item.time + '</span>' +
+      '<span class="nico-comment-text">' + item.text + '</span>' +
+      '<span class="nico-comment-date">' + item.date + '</span>';
+    commentList.appendChild(row);
+  });
+
+  const button = document.getElementById('play-button');
+  const loading = document.getElementById('loading-mask');
+  const layer = document.getElementById('comment-layer');
+  const sideStatus = document.getElementById('side-status');
+
+  function spawnComment() {
+    const comment = document.createElement('div');
+    comment.className = 'fake-nico-comment';
+    comment.textContent = data.comments[Math.floor(Math.random() * data.comments.length)];
+    comment.style.top = Math.floor(Math.random() * 72) + '%';
+    layer.appendChild(comment);
+    window.setTimeout(function () { comment.remove(); }, 3100);
+  }
+
+  button.addEventListener('click', function () {
+    button.style.display = 'none';
+    sideStatus.textContent = '読み込み中';
+
+    spawnComment();
+    const interval = window.setInterval(spawnComment, 180);
+
+    window.setTimeout(function () {
+      window.clearInterval(interval);
+      loading.style.display = 'flex';
+    }, 650);
+
+    window.setTimeout(function () {
+      window.location.href = 'https://www.youtube.com/watch?v=eglYGbybkrY';
+    }, 1000);
+  });
 }());
 </script>
 </body>
